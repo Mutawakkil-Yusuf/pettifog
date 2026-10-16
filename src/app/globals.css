@@ -1,0 +1,130 @@
+@import "tailwindcss";
+
+@theme {
+  /* Manila & ink */
+  --color-paper: #f5eedd;
+  --color-paper-raised: #fbf6ea;
+  --color-manila: #e7d8b4;
+  --color-manila-deep: #d9c69c;
+  --color-ink: #1c1a17;
+  --color-ink-fade: #6b6357;
+  --color-rule: #c9bc9b;
+  --color-verdict: #a62f26;
+  --color-for: #8c2b22;
+  --color-against: #26456e;
+}
+
+@theme inline {
+  --font-display: var(--font-old-standard);
+  --font-body: var(--font-source-serif);
+  --font-mono: var(--font-courier);
+}
+
+@layer base {
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-body), Georgia, "Times New Roman", serif;
+  }
+
+  /* Faint paper grain, laid over the whole page, never interactive. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    pointer-events: none;
+    opacity: 0.5;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  }
+
+  ::selection {
+    background: var(--color-manila-deep);
+    color: var(--color-ink);
+  }
+}
+
+@layer components {
+  /* Typewriter form fields, the way a clerk fills a carbon form. */
+  .field {
+    width: 100%;
+    background-color: var(--color-paper-raised);
+    border: 1px solid var(--color-rule);
+    color: var(--color-ink);
+    padding: 0.5rem 0.65rem;
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.02em;
+    outline: none;
+  }
+
+  .field:focus {
+    border-color: var(--color-ink);
+    box-shadow: 2px 2px 0 var(--color-manila-deep);
+  }
+
+  .field::placeholder {
+    color: color-mix(in srgb, var(--color-ink-fade) 70%, transparent);
+  }
+
+  /* The ruling stamp: outline-only, cold-stamped onto the page. */
+  .stamp {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    border: 2px solid currentColor;
+    padding: 0.1rem 0.45rem;
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+
+  .stamp-sustained {
+    color: var(--color-verdict);
+    transform: rotate(-4deg);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-verdict) 35%, transparent);
+    opacity: 0.9;
+  }
+
+  /* Exhibit sticker slapped over a photo. */
+  .exhibit {
+    display: inline-block;
+    background: var(--color-paper-raised);
+    border: 1px solid var(--color-verdict);
+    color: var(--color-verdict);
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    padding: 0.08rem 0.4rem;
+    transform: rotate(-3deg);
+    box-shadow: 1px 1px 0 color-mix(in srgb, var(--color-verdict) 25%, transparent);
+  }
+
+  .rule-double {
+    border-bottom: 3px double var(--color-rule);
+  }
+
+  .case-label {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.65rem;
+    color: var(--color-ink-fade);
+  }
+
+  .link-underline {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    text-decoration-color: var(--color-rule);
+  }
+
+  .link-underline:hover {
+    text-decoration-color: var(--color-verdict);
+    color: var(--color-verdict);
+  }
+}
